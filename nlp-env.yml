@@ -1,0 +1,13 @@
+name:  nlp-lab
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - scipy
+  - numpy
+  - jupyter
+  - matplotlib
+  - tqdm
+  - scipy
+  - matplotlib
+  - nltk
