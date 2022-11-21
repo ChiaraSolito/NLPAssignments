@@ -1,6 +1,9 @@
 # NLPAssignments
+
 Assignments for NLP course, followed during the master degree in Artificial Intelligence @ UniVR.
+
 ## Assignment n.1
+
 The assignment consists in the development, in NLTK, OpenNLP, SketchEngine or GATE/Annie a Naïve Bayes Classifier able to detect a single class in one of the corpora available as attachments to the chosen package, by distinguishing ENGLISH against NON-ENGLISH. In particular the classifier has to be:
 
 1. Trained on a split subset of the chosen corpus, by either using an existing partition between sample documents for training and for test or by using a random splitter among the available ones;
