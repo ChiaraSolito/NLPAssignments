@@ -18,6 +18,9 @@ from nltk.corpus import stopwords
 from nltk.corpus import genesis
 from nltk.corpus import udhr
 
+def lexical_diversity(text):
+    return len(set(text)) / len(text)
+
 def createCorpus():
     english = genesis.words("english-kjv.txt")
     english_web = genesis.words("english-web.txt")
@@ -35,7 +38,21 @@ def createCorpus():
         else:
             d['genesis_corpus'].append(udhr.words(language))
             d['language'].append(1)
-    return pd.DataFrame(data=d)
+    df =pd.DataFrame(data=d)
+
+    print('\nInformation about the corpus.\n')
+
+    print(f'Information about genesis corpus in english.\n Length: {len(english)}, Lexical diversity: {lexical_diversity(english)}')
+    print(f'Information about genesis corpus in english (web).\n Length: {len(english_web)}, Lexical diversity: {lexical_diversity(english_web)}')
+    print(f'Information about genesis corpus in finnish.\n Length: {len(finnish)}, Lexical diversity: {lexical_diversity(finnish)}')
+    print(f'Information about genesis corpus in french.\n Length: {len(french)}, Lexical diversity: {lexical_diversity(french)}')
+    print(f'Information about genesis corpus in portuguese.\n Length: {len(portuguese)}, Lexical diversity: {lexical_diversity(portuguese)}')
+    print(f"Information about udhr corpus in english-latin1.\n Length: {len(df['genesis_corpus'][5])}, Lexical diversity: {lexical_diversity(df['genesis_corpus'][5])}")
+    print(f"Information about udhr corpus in german.\n Length: {len(df['genesis_corpus'][6])}, Lexical diversity: {lexical_diversity(df['genesis_corpus'][6])}")
+    print(f"Information about udhr corpus in french.\n Length: {len(df['genesis_corpus'][7])}, Lexical diversity: {lexical_diversity(df['genesis_corpus'][7])}")
+    print(f"Information about udhr corpus in spanish.\n Length: {len(df['genesis_corpus'][8])}, Lexical diversity: {lexical_diversity(df['genesis_corpus'][8])}") 
+    
+    return df
 
 def remove_nonalpha(string):
     results = [word for word in string if re.match(r'[a-zA-Z]+',word)]
@@ -86,7 +103,7 @@ random.shuffle(featureset)
 
 train = featureset[:math.ceil(2*(len(featureset)/3))]
 test = featureset[math.ceil(2*(len(featureset)/3)):]
-print(f'Information about the featureset.\nLength of the training set: {len(train)}\nLength of the testing set: {len(test)}\n')
+print(f'\nInformation about the featureset.\nLength of the training set: {len(train)}\nLength of the testing set: {len(test)}\n')
 
 #Classifying
 print('\nTraining the classifier...\n')
