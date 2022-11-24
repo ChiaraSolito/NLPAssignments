@@ -1,0 +1,85 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=0.90in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{hypcap}
+\usepackage[italian]{babel}
+\begin{document}
+
+    \title{First Assignment}
+    \maketitle
+
+    \section{Prompts}
+    The assignment consists in the development, in NLTK, OpenNLP, SketchEngine or GATE/Annie a \textbf{Naïve Bayes Classifier} able to detect a single class in one of the corpora available as attachments to the chosen package, by \textit{distinguishing ENGLISH against NON-ENGLISH}. In particular the classifier has to be:
+        \begin{enumerate}
+            \item Trained on a split subset of the chosen corpus, by either using an existing partition between sample documents for training and for test or by using a random splitter among the available ones;
+            \item Devised as a pipeline of any chosen format, including the simplest version based on word2vec on a list of words obtained by one of the available lexical resources.
+        \end{enumerate}
+    The test of the classifier shall give out the measures of \textbf{accuracy, precision, recall on the obtained confusion matrix} and WILL NOT BE EVALUATED ON THE LEVEL OF THE PERFORMANCES. In other terms, when the confusion is produced, then the value of the assignment will be good, independently of the percentage of false positive and negative results.\\
+
+    Deliver a short set of comments on the experience (do not deliver the entire code, but link it on a public repository like GitHub or the GATE Repo).
+    Discuss: size of the corpus, size of the split training and test sets, performance indicators employed and their nature, employability of the classifier as a Probabilistic Language Model.
+
+    \section{Delivering of the code}
+    The code is in a public repo GitHub:\\
+    \href{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}{ChiaraSolito/NLPAssignments/Assignment1}. In the repo there are two versions of the code:\footnote{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}
+        \begin{itemize}
+            \item A \href{https://github.com/ChiaraSolito/NLPAssignments/blob/main/Assignment1/firstAssignment.ipynb}{notebook version}, with all the comments from this document directly embedded.
+            \item A \href{https://github.com/ChiaraSolito/NLPAssignments/blob/main/Assignment1/firstAssignment.py}{python script version}, that prints on terminal a formatted version of results.
+        \end{itemize}
+
+    \section{Comments on the experience}
+        \subsection{Introduction}
+        The classifier was developed with the nltk package, using its own classifier (\texttt{nltk.NaiveBayesClassifier()}) with a simple pipeline, that resembles word2vec:
+            \begin{enumerate}
+                \item Acquisition of data
+                \item Cleaning and pre-processing 
+                    \begin{enumerate}
+                        \item Removal of non-alphanumeric characters and words 
+                        \item Removal of stop-words of all the languages
+                    \end{enumerate}
+                \item Tokenization 
+                \item Creation of the Bag of Words 
+                \item Splitting training and testing sets 
+                \item Training the model 
+                \item Testing and Querying the model
+            \end{enumerate}
+        \subsection{Size of the corpus}
+        The corpus was made mixing 9 pre-existing nltk corpus, from the \textbf{Genesis} corpus and the \textbf{Universal declaration of human rights} corpus:
+            \begin{itemize}
+                \item 3 of the corpus are in english (two from the genesis and one from the Udhr)
+                \item The other languages used are: Finnish, French (2 corpus), Portuguese, German and Spanish 
+            \end{itemize}
+            The sizes are:
+                \begin{center}
+                    \begin{tabular}{c|c|c}
+                        \textbf{Corpus} & \textbf{Size} & \textbf{Lexical Diversity} \\
+                        English genesis & 44764 & 0.06230453042623537\\
+                        English web genesis & 44054 & 0.06033504335588142 \\
+                        Finnish genesis & 32520 & 0.2088560885608856\\
+                        French genesis & 46116 & 0.0803842484170353\\
+                        Portuguese genesis & 45094 & 0.08457887967357076\\
+                        English-latin1 udhr & 1781 & 0.29927007299270075\\
+                        German udhr & 1521 & 0.3806706114398422\\
+                        French udhr & 1935 & 0.2930232558139535\\
+                        Spanish udhr & 1763 & 0.3074305161656268\\
+                    \end{tabular}
+                \end{center}
+                Total size of the corpus stands at 219548 words, of which 90599 are english.
+            
+
+        \subsection{Size of the split training and test sets}
+        Common split percentages include:
+            \begin{itemize}
+                \item Train: 80\%, Test: 20\%
+                \item Train: 67\%, Test: 33\%
+                \item Train: 50\%, Test: 50\%
+            \end{itemize}
+            
+        \subsection{Performance indicators}
+            \paragraph{}
+        \subsection{Employability}
+\end{document}
