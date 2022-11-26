@@ -9,7 +9,9 @@
 \usepackage[italian]{babel}
 \begin{document}
 
-    \title{First Assignment}
+    \title{\textbf{First Assignment}}
+    \date{}
+    \author{Chiara Solito, VR487795}
     \maketitle
 
     \section{Prompts}
@@ -24,8 +26,8 @@
     Discuss: size of the corpus, size of the split training and test sets, performance indicators employed and their nature, employability of the classifier as a Probabilistic Language Model.
 
     \section{Delivering of the code}
-    The code is in a public repo GitHub:\\
-    \href{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}{ChiaraSolito/NLPAssignments/Assignment1}. In the repo there are two versions of the code:\footnote{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}
+    The code is in a public repository on GitHub:\\
+    \href{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}{ChiaraSolito/NLPAssignments/Assignment1}. In the repository there are two versions of the code:\footnote{https://github.com/ChiaraSolito/NLPAssignments/tree/main/Assignment1}
         \begin{itemize}
             \item A \href{https://github.com/ChiaraSolito/NLPAssignments/blob/main/Assignment1/firstAssignment.ipynb}{notebook version}, with all the comments from this document directly embedded.
             \item A \href{https://github.com/ChiaraSolito/NLPAssignments/blob/main/Assignment1/firstAssignment.py}{python script version}, that prints on terminal a formatted version of results.
@@ -43,17 +45,18 @@
                     \end{enumerate}
                 \item Tokenization 
                 \item Creation of the Bag of Words 
-                \item Splitting training and testing sets 
+                \item Splitting dataset in train and test sets 
                 \item Training the model 
                 \item Testing and Querying the model
             \end{enumerate}
+        To run the code you can create the environment "nlp-lab", with the necessary requirments that you can find in the \texttt{.yaml} file, and you also have to install the genesis, udhr and gutenberg corpus from nltk.corpus.
         \subsection{Size of the corpus}
-        The corpus was made mixing 9 pre-existing nltk corpus, from the \textbf{Genesis} corpus and the \textbf{Universal declaration of human rights} corpus:
+        The corpus was made mixing 11 pre-existing nltk corpus, from the \textbf{Genesis} corpus, the \textbf{Universal declaration of human rights} corpus and the \textbf{Gutenberg} corpus:
             \begin{itemize}
-                \item 3 of the corpus are in english (two from the genesis and one from the Udhr)
-                \item The other languages used are: Finnish, French (2 corpus), Portuguese, German and Spanish 
+                \item 5 of the corpus are in english (two from Genesis, one from Udhr, two from Gutenberg)
+                \item The other languages used are: Finnish, French (two corpus), Portuguese, German and Spanish 
             \end{itemize}
-            The sizes are:
+            Informations about the dataset:
                 \begin{center}
                     \begin{tabular}{c|c|c}
                         \textbf{Corpus} & \textbf{Size} & \textbf{Lexical Diversity} \\
@@ -66,9 +69,12 @@
                         German udhr & 1521 & 0.3806706114398422\\
                         French udhr & 1935 & 0.2930232558139535\\
                         Spanish udhr & 1763 & 0.3074305161656268\\
+                        Emma by Jane Austen & 192427 & 0.04059201671283136\\
+                        Macbeth by Shakespeare & 23140 & 0.17359550561797754
                     \end{tabular}
                 \end{center}
-                Total size of the corpus stands at 219548 words, of which 90599 are english.
+                Total size of the corpus stands at 435115 words, of which 306166 are english.\\
+                After the preprocessing we have a total of: 15771 english words and 14317 non english words.
             
 
         \subsection{Size of the split training and test sets}
@@ -78,8 +84,51 @@
                 \item Train: 67\%, Test: 33\%
                 \item Train: 50\%, Test: 50\%
             \end{itemize}
-            
+            Given the size of the corpus and some experiments during the developing of the code, it's been chosen to use the 67\% and 33\% split of the dataset.\\
+            In the end, after the preprocessing and cleaning of the data, the size of the train set is 19574 words and the size of the test set is 10514 words.
+        
         \subsection{Performance indicators}
-            \paragraph{}
+            \subsubsection*{Standard Metric measurements}
+            The performance of the classifier on the constructed test set is analyzed with confusion matrix by measuring the standard
+            metrics that are commonly used for measuring the classification performance of other classification models.\\
+            The experiments are evaluated using the standard metrics of accuracy, precision, recall and F-measure for classification.
+            These were calculated using the predictive classification table, known as Confusion Matrix, where:\\
+            \begin{itemize}
+                \item TN (True Negative) : Number of correct predictions that an instance is irrelevant
+                \item FP (False Positive) : Number of incorrect predictions that an instance is relevant
+                \item FN (False Negative) : Number of incorrect predictions that an instance is irrelevant
+                \item TP (True Positive) : Number of correct predictions that an instance is relevant
+                \item Accuracy(ACC) - The proportion of the total number of predictions that were correct:
+                    \subitem Accuracy (\%) = (TN + TP)/(TN+FN+FP+TP)
+                \item Precision(PREC) - The proportion of the predicted relevant materials data sets that were correct:
+                    \subitem Precision (\%) = TP / (FP + TP)
+                \item Recall(REC) - The proportion of the relevant materials data sets that were correctly identified
+                    \subitem Recall (\%) = TP / (FN + TP)
+                \item F-Measure(FM) - Derives from precision and recall values:
+                    \subitem F-Measure (\%) = (2 x REC x PREC)/(REC + PREC) 
+            \end{itemize}
+            The F-Measure only produces a high result when Precision and Recall are both balanced, thus this is very significant.\\
+            The measures for the classifier are:
+            \begin{center}
+                \begin{tabular}{c|c|c|c}
+                    \textbf{Tag} & \textbf{Precision} & \textbf{Recall} & \textbf{F-measure}\\
+                    english & 0.5209 & 0.9890 & 0.6824\\
+                    non-english & 0.5200 & 0.0129 & 0.0252
+                \end{tabular}
+            \end{center}
+            Each row as to be intended as the one in which the label (Tag) is the True statement (so we'll look at the first one). 
+
+            \subsubsection*{Confusion Matrix}
+            The resultant confusion matrix was: (example from one of the experiments)
+            \begin{center}
+                \begin{tabular}{c|c|c}
+                    & english & non-english\\
+                    english & <5427> & 79\\
+                    non-english & 4948 & <60>\\
+                \end{tabular}\\~\
+                (row = reference; col = test)
+            \end{center}
+            The classifier is good at identifying english words as such, but not as good as classifying non-english words.
         \subsection{Employability}
+        This model can compute the probability of a given word being english or non-english, so it can actually be seen as a unigram model, it doesnt consider the sequences or sentences. Given the F-measure though I don't think it is actually employable as classifier.
 \end{document}
