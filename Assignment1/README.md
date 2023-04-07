@@ -80,4 +80,4 @@ These were calculated using the predictive classification table, known as Confus
 
 ## Employability
 
-Each row as to be intended as the one in which the label is the True statement (so we'll look at the first one). Given the F-measure though I don't think it is actually employable as classifier.
+Each row has to be intended as the one in which the label is the True statement (so we'll look at the first one). Given the F-measure though I don't think it is actually employable as classifier.
